@@ -426,10 +426,12 @@ input.forEach((element) => {
       // console.log(`Data for ${address}`);
       let online = $(this).find("span:contains('Online')").text();
       if (online) {
-        let webStore = online.match(/\b(https?:\/\/.*?\.[a-z]{2,4}\b)/g);
-        console.log(`Web Store ${webStore}`);
+        let webStore = online.match(/(?:www|https?)[^\s]+/gi);
+        if (webStore) {
+          console.log(`Web Store ${webStore[0]}`);
+        }
       } else {
-        console.log(`no online for ${address}`);
+        // console.log(`no online for ${address}`);
       }
     });
   });
