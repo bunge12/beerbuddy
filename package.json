@@ -1,0 +1,12 @@
+{
+  "name": "beerbuddy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:bunge12/beerbuddy.git",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "firebase-admin": "^8.11.0"
+  }
+}
