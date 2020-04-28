@@ -1,4 +1,5 @@
 // main.js
+// Go to address, fetch each brewery's URL
 
 const axios = require("axios");
 const cheerio = require("cheerio");
@@ -8,7 +9,6 @@ fetchData(url).then((res) => {
   const html = res.data;
   const $ = cheerio.load(html);
   const statsTable = $("#list-inner > ul > li");
-  // console.log(statsTable);
   statsTable.each(function () {
     let title = $(this).find("a").text().trim();
     let address = $(this).find("a").attr("href");
