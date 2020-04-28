@@ -7,14 +7,12 @@ const url = "https://bccraftbeer.com/our-breweries/";
 fetchData(url).then((res) => {
   const html = res.data;
   const $ = cheerio.load(html);
-  const statsTable = $(
-    "script[type='text/javascript']:contains('map_json')"
-  ).first();
+  const statsTable = $("#list-inner > ul > li");
   // console.log(statsTable);
   statsTable.each(function () {
-    const data = this.children[0].data;
-
-    console.log(data);
+    let title = $(this).find("a").text().trim();
+    let address = $(this).find("a").attr("href");
+    console.log(title, address);
   });
 });
 
