@@ -9,11 +9,14 @@ fetchData(url).then((res) => {
   const html = res.data;
   const $ = cheerio.load(html);
   const statsTable = $("#list-inner > ul > li");
+  const result = [];
   statsTable.each(function () {
     let title = $(this).find("a").text().trim();
     let address = $(this).find("a").attr("href");
-    console.log(title, address);
+    // console.log(title, address);
+    result.push({ name: title, url: address });
   });
+  console.log(result);
 });
 
 async function fetchData(url) {
