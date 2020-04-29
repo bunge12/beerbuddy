@@ -1,5 +1,5 @@
 // fetch_on.js -> fetch Ontario breweries
-// Go to address, fetch each brewery's URL
+// Go to address, fetch each brewery's URL, and their online store
 
 const cheerio = require("cheerio");
 const url = "https://www.ontariocraftbrewers.com/Beer.html";
@@ -21,10 +21,10 @@ puppeteer
       let title = $(this).find(".entry-title").text().trim();
       let url = $(this).find("a:contains('Website')").attr("href");
       let webStore = $(this).find("a:contains('Store')").attr("href");
-      console.log(title, url, webStore);
+      // console.log(title, url, webStore);
       result.push({ title, url, webStore });
     });
 
-    console.log(result);
+    console.log(result.length);
   })
   .catch(console.error);
