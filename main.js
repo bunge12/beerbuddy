@@ -9,6 +9,7 @@ fetchData(url).then((res) => {
   const html = res.data;
   const $ = cheerio.load(html);
   const statsTable = $("#list-inner > ul > li");
+  // console.log(statsTable);
   const result = [];
   statsTable.each(function () {
     let title = $(this).find("a").text().trim();

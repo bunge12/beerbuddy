@@ -1,35 +1,35 @@
 // fetch_on.js -> fetch Ontario breweries
 // Go to address, fetch each brewery's URL
 
-const axios = require("axios");
 const cheerio = require("cheerio");
 const url = "https://www.ontariocraftbrewers.com/Beer.html";
+const puppeteer = require("puppeteer");
 
-fetchData(url).then((res) => {
-  const html = res.data;
-  console.log("html:", html);
-  const $ = cheerio.load(html);
-  const statsTable = $("#BrewerList > .row");
-  const result = [];
-  statsTable.each(function () {
-    let title = $(this).find("a").text().trim();
-    let address = $(this).find("a").attr("href");
-    console.log(title, address);
-    result.push({ name: title, url: address });
-  });
-  // console.log(result);
-});
+puppeteer
+  .launch()
+  .then((browser) => browser.newPage())
+  .then((page) => {
+    return page.goto(url).then(function () {
+      return page.content();
+    });
+  })
+  .then((html) => {
+    const $ = cheerio.load(html);
+    const newsHeadlines = [];
+    const brewerTable = $("#brewercontainer > div");
+    brewerTable.each(function () {
+      let title = $(this).find(".entry-title").text().trim();
+      let address = $(this).find(".entry").attr("href");
+      console.log(title);
+      // result.push({ name: title, url: address });
+    });
+    // $("#BrewerList > row").each(function () {
+    //   console.log(this);
+    //   // newsHeadlines.push({
+    //   //   title: $(this).text(),
+    //   // });
+    // });
 
-async function fetchData(url) {
-  console.log("Crawling data...");
-  // make http call to url
-  let response = await axios
-    .get(url, { timeout: 5000 })
-    .catch((err) => console.log(err));
-
-  if (response.status !== 200) {
-    console.log("Error occurred while fetching data");
-    return;
-  }
-  return response;
-}
+    // console.log(newsHeadlines);
+  })
+  .catch(console.error);
