@@ -8,14 +8,13 @@ const url = "https://ambq.ca/microbrasseries";
 fetchData(url).then((res) => {
   const html = res.data;
   const $ = cheerio.load(html);
-  const statsTable = $("#list-inner > ul > li");
-  // console.log(statsTable);
+  const brewerTable = $(".list-microbrasserie > li");
   const result = [];
-  statsTable.each(function () {
+  brewerTable.each(function () {
     let title = $(this).find("a").text().trim();
-    let address = $(this).find("a").attr("href");
-    // console.log(title, address);
-    result.push({ name: title, url: address });
+    let url = $(this).find("a").attr("href");
+    console.log(title, url);
+    result.push({ title, url });
   });
   console.log(result);
 });
