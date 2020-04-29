@@ -15,21 +15,16 @@ puppeteer
   })
   .then((html) => {
     const $ = cheerio.load(html);
-    const newsHeadlines = [];
+    const result = [];
     const brewerTable = $("#brewercontainer > div");
     brewerTable.each(function () {
       let title = $(this).find(".entry-title").text().trim();
-      let address = $(this).find(".entry").attr("href");
-      console.log(title);
-      // result.push({ name: title, url: address });
+      let url = $(this).find("a:contains('Website')").attr("href");
+      let webStore = $(this).find("a:contains('Store')").attr("href");
+      console.log(title, url, webStore);
+      result.push({ title, url, webStore });
     });
-    // $("#BrewerList > row").each(function () {
-    //   console.log(this);
-    //   // newsHeadlines.push({
-    //   //   title: $(this).text(),
-    //   // });
-    // });
 
-    // console.log(newsHeadlines);
+    console.log(result);
   })
   .catch(console.error);
